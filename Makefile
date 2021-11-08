@@ -106,6 +106,12 @@ grep3: ## utility for searching lines using regexp
 grep4: ## find substring
 	grep "3" . -r --exclude-dir .idea
 
+grep5:
+	tail -f  /var/log/syslog | grep -E --line-buffered ''
+grep6:
+	history | grep apt | less
+
+
 rgrep:
 
 # STDIN STDOUT SRDERR
