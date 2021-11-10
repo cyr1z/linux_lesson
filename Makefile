@@ -1,11 +1,10 @@
+# Lesson 1
 .PHONY: help
 
 help: ## This help.
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
 .DEFAULT_GOAL := help
-
-# Lesson 1
 
 # NAVIGATION
 
@@ -15,14 +14,8 @@ pwd: ## Current work dir
 ls: ## Show directory content:
 	ls
 
-ls-la: ## Show directory content with detail
+lsla: ## Show directory content with detail
 	ls -la
-
-ls-lah: ## Show directory content with detail
-	ls -lah
-
-ls-lah-p: ## Show directory content with detail
-	ls -lah *sh
 
 lsh: ## Show command help
 	ls --help
@@ -35,6 +28,8 @@ cd: ## Change directory
 
 cd2: ## Change directory
 	cd my_secret_directory && ls -la
+
+# &&, ||,
 
 cd3: ## Change directory
 	cd .. && ls
@@ -53,9 +48,6 @@ rmdir2: ## Remove directory fail
 rm-r: ## Remove no empty directory (-r recursive)
 	rm -r my_secret_directory
 
-rm-rf: ## remove files and directories recursively forced.
-	rm -rf my_secret_directory
-
 cp: ## copy file
 	cp demo.sh demo-bkp.sh
 
@@ -71,8 +63,14 @@ rm: ## remove file
 touch: ## Create file/update timestamps
 	touch my_new_file.txt
 
+
+# Print file content
+
 cat: ## Print file content using cat utility
 	cat ~/.ssh/id_rsa.pub
+
+stat: ## file info
+	stat ~/.ssh/id_rsa.pub
 
 less: ## Print file using less q - exit; f - next page; b - previous page
 	less /var/log/auth.log
@@ -94,27 +92,15 @@ df: ## Disk space usage
 du: ## Disk space usage in directory
 	du -h
 
-ncdu: ##  provides a navigable overview of file space usage
-	ncdu
+# ncdu
 
-top: ## displays all currently-running processes and their owners, memory usage, and more
+top:
 	top
-htop: ## ncurses top analog
+
+htop:
 	htop
 
-logout:
-	logout
-
-exit:
-	exit
-
-clear:
-	clear
-
-passwd: # Change password https://www.opennet.ru/man.shtml?topic=passwd&category=1
-	passwd
-
-## Grep https://linuxconfig.org/grep-egrep-fgrep-rgrep
+## Grep
 grep: ## utility for searching lines using regexp
 	grep mouse /var/log/Xorg.0.log
 
@@ -125,10 +111,7 @@ grep3: ## utility for searching lines using regexp
 	grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' /var/log/syslog > ips.txt
 
 grep4: ## find substring
-	grep "3" . -r --exclude-dir .idea
-
-grep-sort:
-	grep "3" . -r --exclude-dir .idea | sort
+	grep "dir" . -r --exclude-dir .idea
 
 grep5:
 	tail -f  /var/log/syslog | grep -E --line-buffered ''
@@ -136,38 +119,45 @@ grep5:
 grep6:
 	history | grep apt | less
 
-# ctrl+r history search
 
-grep-wc:
-	cat Makefile  | grep grep | wc -l
 
-# rg (rip grep)
-# https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md
-
-ps: ## shows all of the user's currently-running processes
-	ps
-
-#date
-#
-#echo
-#kill
-#killall
-#tar (the bomb disarming command)
-#jobs, bg, and fg
-#gzip
-#gunzip
-#alias
-#xargs
-#ln
-#who
-# ssh / sc
 # STDIN STDOUT SRDERR
 
 
 # pipe
+# > - перенаправление потока вывода в файл (файл будет создан, или перезаписан)
+# >> - дописать поток вывода в конец файла;
+# < - перенаправляет данные из файла в поток ввода;
+# <<< - чтение данных из строки, вместо всего содержимого файла (работает для bash 3+)
+# 2> - перенаправляет поток ошибок в файл (файл будет создан, или перезаписан)
+# 2>> - дописать ошибки в конец файла;
+# 2>&1 - ошибки в основной потока
+# &>
 
-# fg bg ctrl+z tab
-# ctrl+r
+
+lsout:
+	ls -la > output
+
+grepout:
+	grep alias ~/.zshrc > result
+	# cat result
+
+errout:
+	 cd dart 2> err.txt
+
+allout:
+	 cd dart 2> err.txt
+
+norewrite:
+	echo 'hello' >> result
+
+linecount:
+	wc -l < result
+
+linecountout:
+	wc -l < result > output
+
+# fg bg tab hystory
 
 
 
