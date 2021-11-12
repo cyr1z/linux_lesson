@@ -1,0 +1,18 @@
+{
+  "id": 0,
+  "category": {
+    "id": 11,
+    "name": "ocelots"
+  },
+  "name": "barker",
+  "photoUrls": [
+    "string"
+  ],
+  "tags": [
+    {
+      "id": 0,
+      "name": "string"
+    }
+  ],
+  "status": "available"
+}
